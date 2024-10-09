@@ -2,7 +2,7 @@ name: Github_Neoload_Scheduler_01
 
 on:
   schedule:
-    - cron: '10 6 * * *'
+    - cron: '7 6 * * *'
   workflow_dispatch:
     inputs:
       date:
