@@ -1,1 +1,54 @@
+name: Github_Neoload_Test_01
 
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Neoload CLI github action
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Install Neoload CLI"
+        run: pip3 install -U neoload
+
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+
+      - name: "Prepare Neoload Test"
+        env:
+          NEOLOAD_LOGIN: ${{secrets.NEOLOAD_LOGIN}}
+        run: neoload login $NEOLOAD_LOGIN
+
+      - name: Use workspace
+        run: neoload workspaces use "K&D - I and I"
+        
+      - name: "Do Test Settings"
+        run: neoload test-settings --zone HtRnd --lgs 1 --scenario 'scenario1' createorpatch "NeoGithub_test_01"
+
+      - name: "Upload Project"
+        run: neoload project --path Regions_QA_For_Git.zip upload NeoGithub_test_01
+
+      - name: "Neoload run test"
+        run: >
+          neoload --batch run
+          --detached
+          --external-url $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+          --external-url-label "Github Action Run $GITHUB_RUN_NUMBER"
+          --name "Github pipeline performance test - Github build #$GITHUB_RUN_NUMBER"
+          --description "Automated Performance Tests"
+
+      - name: Fast-Fail
+        run: neoload fastfail --max-failure 2 slas cur
+
+      - name: Wait till result collates
+        run: neoload wait cur
+
+      - name: Get report
+        if: always()
+        run: neoload logs-url cur >result.txt
+
+      - name: Get NL Report Link
+        if: always()
+        id: nl_report
+        run: echo "report=$(cat result.txt)" >> $GITHUB_OUTPUT
