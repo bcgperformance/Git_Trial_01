@@ -27,7 +27,7 @@ jobs:
         run: neoload test-settings --zone HtRnd --lgs 1 --scenario 'scenario1' createorpatch "NeoGithub_test_01"
 
       - name: "Upload Project"
-        run: neoload project --path Regions_QA.zip upload NeoGithub_test_01
+        run: neoload project --path Regions_QA_For_Git.zip upload NeoGithub_test_01
 
       - name: "Neoload run test"
         run: >
