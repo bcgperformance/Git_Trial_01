@@ -33,4 +33,22 @@ jobs:
         run: >
           neoload --batch run
           --detached
-          --external-url 
+          --external-url $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/run/$GITHUB_RUN_ID
+          --external-url-label "Github Action Run $GITHUB_RUN_NUMBER"
+          --name "Github pipeline performance test - Github build #$GITHUB_RUN_NUMBER"
+          --description "Automating Performance Tests"
+
+      - name: Fast-Fail
+        run: neoload fastfail --max-failure 2 slas cur
+
+      - name: Wait till result collates
+        run: neoload wait cur
+
+      - name: Get report
+        if: always()
+        run: neoload logs-url cur >result.txt
+
+      - name: Get NL Report Link
+        if: always()
+        id: nl_report
+        run: echo "report=$(cat result.txt)" >> $GITHUB_OUTPUT
