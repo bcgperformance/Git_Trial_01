@@ -1,0 +1,20 @@
+name: Github Neoload Test v1
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Neoload CLI github action
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Install Neoload CLI"
+        run: pip3 install -U neoload
+
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+
+      - name: "Prepare Neoload Test"
+        env:
+          NEOLOAD_LOGIN: $
