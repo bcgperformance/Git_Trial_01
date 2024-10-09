@@ -1,4 +1,4 @@
-Githubname: Github Neoload Test v1
+name: Github Neoload Test v1
 
 on:
   workflow_dispatch:
