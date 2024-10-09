@@ -1,4 +1,4 @@
-name: Github Neoload Test v1
+name: Github_Neoload_Test_01
 
 on:
   workflow_dispatch:
@@ -27,7 +27,7 @@ jobs:
         run: neoload test-settings --zone HtRnd --lgs 1 --scenario 'scenario1' createorpatch "NeoGithub_test_01"
 
       - name: "Upload Project"
-        run: neoload project --path Regions_QA.zip upload Github_Test_01
+        run: neoload project --path Regions_QA.zip upload NeoGithub_test_01
 
       - name: "Neoload run test"
         run: >
@@ -36,7 +36,7 @@ jobs:
           --external-url $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
           --external-url-label "Github Action Run $GITHUB_RUN_NUMBER"
           --name "Github pipeline performance test - Github build #$GITHUB_RUN_NUMBER"
-          --description "Automating Performance Tests"
+          --description "Automated Performance Tests"
 
       - name: Fast-Fail
         run: neoload fastfail --max-failure 2 slas cur
