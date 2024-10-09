@@ -1,7 +1,18 @@
-name: Github_Neoload_Test_01
+name: Github_Neoload_Scheduler_01
 
 on:
+  schedule:
+    - cron: '5 6 * * *'
   workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date to run the workflow'
+        required: true
+        type: string
+        default: 'in 1 hour'
+concurrency:
+  group: schedule${{ github.event.inputs.date }}
+  cancel-in-progress: true
 
 jobs:
   build:
