@@ -21,7 +21,7 @@ jobs:
         run: neoload login $NEOLOAD_LOGIN
 
       - name: Use workspace
-        run: neoload workspace use "K&D - I and I"
+        run: neoload workspaces use "K&D - I and I"
         
       - name: "Do Test Settings"
         run: neoload test-settings --zone HtRnd --lgs 1 --scenario 'scenario1' createorpatch "NeoGithub_test_01"
