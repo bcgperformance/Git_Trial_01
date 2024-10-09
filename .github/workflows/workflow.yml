@@ -1,4 +1,4 @@
-name: Github Neoload Test v1
+Githubname: Github Neoload Test v1
 
 on:
   workflow_dispatch:
@@ -17,4 +17,20 @@ jobs:
 
       - name: "Prepare Neoload Test"
         env:
-          NEOLOAD_LOGIN: $
+          NEOLOAD_LOGIN: ${{secrets.NEOLOAD_LOGIN}}
+        run: neoload login $NEOLOAD_LOGIN
+
+      - name: Use workspace
+        run: neoload workspace use "K&D - I and I"
+        
+      - name: "Do Test Settings"
+        run: neoload test-settings --zone HtRnd --lgs 1 --scenario 'scenario1' createorpatch "NeoGithub_test_01"
+
+      - name: "Upload Project"
+        run: neoload Project --path Regions_QA.zip upload Github_Test_01
+
+      - name: "Neoload run test"
+        run: >
+          neoload --batch run
+          --detached
+          --external-url 
