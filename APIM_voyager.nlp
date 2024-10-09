@@ -1,0 +1,16 @@
+# Project description file
+
+project.name=APIM_voyager
+project.version=8.7
+project.original.version=8.9
+product.name=NeoLoad
+product.original.name=NeoLoad
+ssh.trustUnknownHosts.MONITORS=false
+monitor.tls.insecure=false
+product.original.version=2024.1.0
+project.is-open-test-settings-after-upload=false
+project.id=fac0993c-b8c9-435d-b2d8-0ae4d24a54f3
+project.config.path=config.zip
+project.config.storage=ZIP
+team.server.enabled=false
+product.version=9.1.1
