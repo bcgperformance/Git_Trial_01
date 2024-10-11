@@ -52,3 +52,11 @@ jobs:
         if: always()
         id: nl_report
         run: echo "report=$(cat result.txt)" >> $GITHUB_OUTPUT
+
+      - name: GitHub Actions Slack Integration
+        if: always()
+        uses: slackapi/slack-github-action@v1.24.0
+        env: 
+         SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_LINK}}
+        with:
+         payload: "{\"RunStatus\":\"${{ job.status }}\",\"Workflow\":\"${{ github.workflow }}\",\"RunDetails_Report\":\"${{github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\",\"Report\":\"${{steps.nl_report.outputs.report}}\"}"
