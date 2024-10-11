@@ -2,6 +2,36 @@ name: Github_Neoload_Test_01
 
 on:
   workflow_dispatch:
+    inputs:
+      Environment:
+        description: 'Choose an Environment to Run'
+        required: true
+        default: 'Integration'
+        type: choice
+        options:
+          - Integration
+          - PreProd
+          - Production
+      Scenario:
+        description: 'Test Scenario to Execute'
+        required: true
+        default: 'scenario_1VU_2Min'
+        type: choice
+        options:
+          - scenario_1
+          - scenario_2
+          - scenario_3
+          - scenario_4
+          - scenario_5
+      LoadGenerator:
+        description: 'Choose number of Worker machine'
+        required: true
+        default: '1'
+        type: choice
+        options:
+          - '1'
+          - '2'
+          - '3'     
 
 jobs:
   build:
